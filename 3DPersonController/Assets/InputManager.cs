@@ -1,7 +1,8 @@
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class NewEmptyCSharpScript
+public class InputManager: MonoBehaviour
 {
     PlayerControls playerControls;
     public Vector2 movementInput;
