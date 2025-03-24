@@ -481,7 +481,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 4.09}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1039420085}
@@ -1128,6 +1128,9 @@ PrefabInstance:
       addedObject: {fileID: 5357109746720476947}
     - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5357109746720476949}
+    - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5357109746720476943}
     - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
       insertIndex: -1
@@ -1135,9 +1138,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5357109746720476946}
-    - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5357109746720476949}
     - targetCorrespondingSourceObject: {fileID: 7977192021808540571, guid: 08b20a92c7105a44e9480e01dd4dbeee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5357109746720476951}
@@ -1163,8 +1163,10 @@ MonoBehaviour:
   cameraInput: {x: 0, y: 0}
   cameraInputX: 0
   cameraInputY: 0
+  moveAmount: 0
   verticalInput: 0
   horizontalInput: 0
+  b_input: 0
 --- !u!114 &5357109746720476945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,7 +1179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f657a0292532d49ad597ce6bc161b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  isSprinting: 0
+  walkingSpeed: 1.5
+  runningSpeed: 5
+  sprintingSpeed: 7
   rotationSpeed: 15
 --- !u!114 &5357109746720476946
 MonoBehaviour:
