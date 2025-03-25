@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    Animator animator;
     InputManager inputManager;
     cameraManager cameraManager;
     PlayerLocomotion playerLocomotion;
 
+    public bool isInteracting;
+
     private void Awake()
     {
         //When put on player, the component will be on the same gameobject
+        animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         cameraManager = FindFirstObjectByType<cameraManager>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
@@ -28,5 +32,8 @@ public class PlayerManager : MonoBehaviour
     {
         //Called the next frame
         cameraManager.HandleAllCameraMovement();
+
+        //Constantly check isInteracting
+        isInteracting = animator.GetBool("isInteracting");
     }
 }

@@ -34,8 +34,6 @@ public class InputManager: MonoBehaviour
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();    //Send camera input to vector2 cameraInput var
             playerControls.PlayerActions.B.performed += i=> b_input = true;     //Toggle B
             playerControls.PlayerActions.B.canceled += i => b_input = false;    
-
-
         }
         playerControls.Enable();
 

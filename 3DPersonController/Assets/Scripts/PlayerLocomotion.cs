@@ -5,12 +5,25 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerLocomotion : MonoBehaviour
 {
+    PlayerManager playerManager;
+    AnimatorManager animatorManager;
     InputManager inputManager;
     Vector3 moveDirection;
     Transform cameraObject;
     Rigidbody playerRigidbody;
 
+    [Header("Falling")]
+    public float inAirTimer;
+
+    public float leapingVelocity;
+    public float fallingVelocity;
+    public float rayCastHeightOffset=0.5f;   //Offset plane so not intersecting immediately
+    public LayerMask groundLayer;
+    public float maxDistance = 0.5f;
+
+    [Header("Movement flags")]
     public bool isSprinting;
+    public bool isGrounded;
 
     [Header("Movement Speeds")]
     public float walkingSpeed = 1.5f;
@@ -20,6 +33,8 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void Awake()    //Call before start (Finishied variable)
     {
+        playerManager = GetComponent<PlayerManager>();
+        animatorManager = GetComponent<AnimatorManager>();
         inputManager = GetComponent<InputManager>();
         playerRigidbody = GetComponent<Rigidbody>();
         cameraObject = Camera.main.transform;
@@ -27,6 +42,13 @@ public class PlayerLocomotion : MonoBehaviour
 
     public void HandleAllMovement()
     {
+        //Check falling first
+
+        HandleFallingAndLanding();
+        if (playerManager.isInteracting)
+        {
+            return;
+        }
         HandleMovement();
         HandleRotation();
     }
@@ -55,8 +77,6 @@ public class PlayerLocomotion : MonoBehaviour
             }
         }
 
-
-
         //moveDirection = moveDirection * runningSpeed;
         Vector3 movementVelocity = moveDirection;
         playerRigidbody.linearVelocity = movementVelocity;
@@ -79,4 +99,38 @@ public class PlayerLocomotion : MonoBehaviour
         transform.rotation = playerRotation;
     }
 
+    private void HandleFallingAndLanding()
+    {
+        RaycastHit hit;
+        Vector3 raycastOrigin = transform.position; //At the bottom of player
+        raycastOrigin.y = raycastOrigin.y + rayCastHeightOffset;
+
+        if(!isGrounded) //If not grounded
+        {
+            if(!playerManager.isInteracting)    //If not interacting
+            {
+                //Falling Stuck until condition breaks
+                animatorManager.PlayerTargetAnimation("Falling", true);
+            }
+
+            inAirTimer = inAirTimer + Time.deltaTime;
+            playerRigidbody.AddForce(transform.forward * leapingVelocity);  //
+            playerRigidbody.AddForce(-Vector3.up * fallingVelocity * inAirTimer);   //Down*speed*acc(time)
+        }
+
+        if (Physics.SphereCast(raycastOrigin, 0.2f, -Vector3.up, out hit, maxDistance,groundLayer))
+        {
+            if(!isGrounded && playerManager.isInteracting) //Detect ground and not grounded
+            {
+                animatorManager.PlayerTargetAnimation("Land", true);    //Play land anim
+            }
+            inAirTimer = 0;
+            isGrounded = true;
+            playerManager.isInteracting = false;    //Set isInteracting when grounded
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
 }
