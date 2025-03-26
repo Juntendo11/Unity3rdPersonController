@@ -35,5 +35,7 @@ public class PlayerManager : MonoBehaviour
 
         //Constantly check isInteracting
         isInteracting = animator.GetBool("isInteracting");
+        playerLocomotion.isJumping = animator.GetBool("isJumping"); //disable jumping after isjumping
+        animator.SetBool("isGrounded",playerLocomotion.isGrounded);
     }
 }

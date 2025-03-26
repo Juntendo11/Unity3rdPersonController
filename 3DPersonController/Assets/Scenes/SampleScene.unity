@@ -1167,6 +1167,7 @@ MonoBehaviour:
   verticalInput: 0
   horizontalInput: 0
   b_input: 0
+  jump_input: 0
 --- !u!114 &5357109746720476945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1189,10 +1190,13 @@ MonoBehaviour:
   maxDistance: 0.5
   isSprinting: 0
   isGrounded: 1
+  isJumping: 0
   walkingSpeed: 1.5
   runningSpeed: 5
   sprintingSpeed: 7
   rotationSpeed: 15
+  jumpHeight: 2
+  gravityIntensity: -15
 --- !u!114 &5357109746720476946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1290,6 +1294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 970b4e0fb13f9b44cafd00182c17b6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
