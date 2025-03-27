@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -119,7 +120,10 @@ public class PlayerLocomotion : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 raycastOrigin = transform.position; //At the bottom of player
+        Vector3 targetPosition; //Collilder floating offset
+
         raycastOrigin.y = raycastOrigin.y + rayCastHeightOffset;
+        targetPosition = transform.position;
 
         if(!isGrounded && !isJumping) //If not grounded and dont want falling animation when jumping
         {
@@ -140,6 +144,8 @@ public class PlayerLocomotion : MonoBehaviour
             {
                 animatorManager.PlayerTargetAnimation("Land", true);    //Play land anim
             }
+            Vector3 rayCastHitPoint = hit.point;
+            targetPosition.y = rayCastHitPoint.y;
             inAirTimer = 0;
             isGrounded = true;
             playerManager.isInteracting = false;    //Set isInteracting when grounded
@@ -147,6 +153,19 @@ public class PlayerLocomotion : MonoBehaviour
         else
         {
             isGrounded = false;
+        }
+
+        //New position to be target position when hovering
+        if(isGrounded && !isJumping)
+        {
+            if(playerManager.isInteracting || inputManager.moveAmount>0)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+            }
+            else
+            {
+                transform.position = targetPosition;
+            }
         }
     }
 
