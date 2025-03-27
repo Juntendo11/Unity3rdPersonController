@@ -13,7 +13,6 @@ public class InputManager: MonoBehaviour
     public float cameraInputX;
     public float cameraInputY;
 
-
     public float moveAmount;
     public float verticalInput;
     public float horizontalInput;
@@ -35,8 +34,7 @@ public class InputManager: MonoBehaviour
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();    //Send camera input to vector2 cameraInput var
             playerControls.PlayerActions.B.performed += i=> b_input = true;     //Toggle B
             playerControls.PlayerActions.B.canceled += i => b_input = false;
-            playerControls.PlayerActions.Jump.performed += i => jump_input = true;     //Toggle B
-            //playerControls.PlayerActions.Jump.canceled += i => jump_input = false;
+            playerControls.PlayerActions.Jump.performed += i => jump_input = true;     //Toggle Jump
         }
         playerControls.Enable();
 

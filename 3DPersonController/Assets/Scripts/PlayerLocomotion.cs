@@ -19,7 +19,7 @@ public class PlayerLocomotion : MonoBehaviour
     public float fallingVelocity;
     public float rayCastHeightOffset=0.5f;   //Offset plane so not intersecting immediately
     public LayerMask groundLayer;
-    public float maxDistance = 0.5f;
+    public float maxDistance = 1;
 
     [Header("Movement flags")]
     public bool isSprinting;
@@ -94,7 +94,7 @@ public class PlayerLocomotion : MonoBehaviour
 
     private void HandleRotation()
     {
-
+        
         if(isJumping)
         {
             //Cancel rotation when jumping
@@ -121,7 +121,7 @@ public class PlayerLocomotion : MonoBehaviour
         Vector3 raycastOrigin = transform.position; //At the bottom of player
         raycastOrigin.y = raycastOrigin.y + rayCastHeightOffset;
 
-        if(!isGrounded && isJumping) //If not grounded and dont want falling animation when jumping
+        if(!isGrounded && !isJumping) //If not grounded and dont want falling animation when jumping
         {
             if(!playerManager.isInteracting)    //If not interacting
             {
